@@ -25,10 +25,10 @@ function useNotesList() {
       .then((list) =>
         list
           .slice(0, -1)
-          .map(({ args: { persona, saludo }, transactionHash }) => ({
+          .map(({ args: { persona, contenido }, transactionHash }) => ({
             transactionHash,
             persona,
-            contenido: saludo,
+            contenido,
           }))
       )
       .then(setList)
