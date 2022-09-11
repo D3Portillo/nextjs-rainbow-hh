@@ -4,22 +4,32 @@ import { FaArrowRight } from "react-icons/fa"
 
 import RainbowButton from "@/components/RainbowButton"
 import getContract from "@/lib/getContract"
+import { noOp } from "@/lib/helpers"
 
 const GuestBook = getContract("GuestBook")
 
-function AddNote() {
-  const { isLoading, write } = useDeprecatedContractWrite({
+type Props = {
+  onItemCreation(): void
+  onItemValidation(): void
+}
+
+function AddNote({ onItemCreation, onItemValidation }: Props) {
+  const { isLoading, writeAsync } = useDeprecatedContractWrite({
     addressOrName: GuestBook.address,
     contractInterface: GuestBook.abi,
     functionName: "addNote",
   })
 
-  const addNote = (note: string) => write({ args: [note] })
+  const addNote = (note: string) => writeAsync({ args: [note] })
 
   function handleAddItem() {
     const note = prompt("Leave a note DApp creator 😊")
     if (note) {
+      onItemCreation()
       addNote(note)
+        .then((tx) => tx.wait())
+        .catch(noOp)
+        .finally(onItemValidation)
     }
   }
 
