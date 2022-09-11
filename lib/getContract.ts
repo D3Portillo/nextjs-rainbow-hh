@@ -13,13 +13,13 @@ const CONTRACTS_BY_CHAIN = {
 }
 
 const READ_ONLY_CHAIN = (() => {
-  if (process.env.FORCE_GOERLI_RO_PROVIDER) return chain.goerli
+  if (process.env.NEXT_PUBLIC_FORCE_GOERLI_PROVIDER === "true")
+    return chain.goerli
   if (typeof window === "undefined" || process.env.NODE_ENV === "development")
     return chain.hardhat
   return chain.goerli
 })()
 
-console.debug({ READ_ONLY_CHAIN })
 const CONTRACT_LIST = CONTRACTS_BY_CHAIN[READ_ONLY_CHAIN.id] as {
   contracts: any
 } & typeof CONTRACTS_HARDHAT
