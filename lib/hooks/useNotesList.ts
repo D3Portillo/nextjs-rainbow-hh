@@ -23,13 +23,11 @@ function useNotesList() {
   useEffect(() => {
     GuestBook.queryFilter(GuestBook.filters.NewNote())
       .then((list) =>
-        list
-          .slice(0, -1)
-          .map(({ args: { persona, contenido }, transactionHash }) => ({
-            transactionHash,
-            persona,
-            contenido,
-          }))
+        list.map(({ args: { persona, contenido }, transactionHash }) => ({
+          transactionHash,
+          persona,
+          contenido,
+        }))
       )
       .then(setList)
       .catch(noOp)
