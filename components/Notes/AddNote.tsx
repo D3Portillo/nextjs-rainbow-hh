@@ -1,4 +1,5 @@
-import { useDeprecatedContractWrite } from "wagmi"
+import { useAccount, useDeprecatedContractWrite } from "wagmi"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 import { SiSpinrilla } from "react-icons/si"
 import { FaArrowRight } from "react-icons/fa"
 
@@ -14,6 +15,8 @@ type Props = {
 }
 
 function AddNote({ onItemCreation, onItemValidation }: Props) {
+  const { openConnectModal = noOp } = useConnectModal()
+  const { address } = useAccount()
   const { isLoading, writeAsync } = useDeprecatedContractWrite({
     addressOrName: GuestBook.address,
     contractInterface: GuestBook.abi,
@@ -21,8 +24,10 @@ function AddNote({ onItemCreation, onItemValidation }: Props) {
   })
 
   const addNote = (note: string) => writeAsync({ args: [note] })
-
   function handleAddItem() {
+    if (!address) {
+      return openConnectModal()
+    }
     const note = prompt("Leave a note DApp creator 😊")
     if (note) {
       onItemCreation()
