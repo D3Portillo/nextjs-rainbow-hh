@@ -1,7 +1,8 @@
 declare namespace NodeJS {
   export interface ProcessEnv {
     ETHERSCAN_API_KEY: string
-    ALCHEMY_API_KEY: string
+    /** @see https://docs.alchemy.com/docs/alchemy-quickstart-guide#1key-create-an-alchemy-key */
+    NEXT_PUBLIC_ALCHEMY_API_KEY: string
     /** Your EOA Private Key */
     PRIVATE_KEY: string
     /**
