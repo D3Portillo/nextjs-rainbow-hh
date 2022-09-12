@@ -1,11 +1,14 @@
 import { Contract, utils } from "ethers"
 import { chain } from "wagmi"
 
-import CONTRACTS_HARDHAT from "@/lib/abis/localhost.json"
+import type { GuestBook } from "typechain-types"
 import CONTRACTS_GOERLI from "@/lib/abis/goerli.json"
 import { provider } from "pages/_app"
 
-import type { GuestBook } from "typechain-types"
+let CONTRACTS_HARDHAT = {} as typeof CONTRACTS_GOERLI
+try {
+  CONTRACTS_HARDHAT = require("@/lib/abis/localhost.json")
+} catch (_) {}
 
 const CONTRACTS_BY_CHAIN = {
   [chain.hardhat.id]: CONTRACTS_HARDHAT,
@@ -22,7 +25,7 @@ const READ_ONLY_CHAIN = (() => {
 
 const CONTRACT_LIST = CONTRACTS_BY_CHAIN[READ_ONLY_CHAIN.id] as {
   contracts: any
-} & typeof CONTRACTS_HARDHAT
+} & typeof CONTRACTS_GOERLI
 
 /**
  * Define map all your contract typedefs
