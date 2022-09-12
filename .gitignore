@@ -39,7 +39,6 @@ yarn-error.log*
 
 # project
 .env
-lib/abis/goerli.json
 lib/abis/localhost.json
 deployments/localhost
 cache
