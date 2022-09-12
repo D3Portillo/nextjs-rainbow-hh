@@ -28,7 +28,7 @@ function AddNote({ onItemCreation, onItemValidation }: Props) {
     if (!address) {
       return openConnectModal()
     }
-    const note = prompt("Leave a note DApp creator 😊")
+    const note = prompt("Leave a note for ur Frens 😊!")
     if (note) {
       onItemCreation()
       addNote(note)
