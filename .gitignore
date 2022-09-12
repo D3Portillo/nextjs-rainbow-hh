@@ -43,6 +43,5 @@ lib/abis/localhost.json
 deployments/localhost
 cache
 artifacts
-package-lock.json
 typechain-types/*
 !typechain-types/.gitkeep
